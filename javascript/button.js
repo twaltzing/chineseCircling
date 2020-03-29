@@ -3,7 +3,7 @@ const button = document.getElementById('make');
 button.addEventListener('click', makeQuestions);
 
 function makeQuestions() {
-    alert ("Thanks for clicking! Come back again!");
+    // alert ("Thanks for clicking! Come back again!");
     const sentence=document.getElementById('sentence').value;
     //  console.log(sentence);
      const shadow=document.getElementById('shadow').value;
