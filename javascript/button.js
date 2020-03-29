@@ -52,16 +52,19 @@ longAnswer=deny + sentence +"。 "+ deny;
 
 
     let questionDiv = document.createElement('div');
+    questionDiv.classList.add('questionOutput');
     questionDiv.class = 'questionOutput';
     questionDiv.innerHTML = question;
     document.body.appendChild(questionDiv);
 
     let shortAnsDiv = document.createElement('div');
+    shortAnsDiv.classList.add('shortAnsOutput');
     shortAnsDiv.class = 'shortAnsOutput';
     shortAnsDiv.innerHTML = shortAnswer;
     document.body.appendChild(shortAnsDiv);
 
     let longAnsDiv = document.createElement('div');
+    longAnsDiv.classList.add('longAnsOutput');
     longAnsDiv.class = 'longAnsOutput';
     longAnsDiv.innerHTML = longAnswer;
     document.body.appendChild(longAnsDiv);
