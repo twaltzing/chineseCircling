@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+ul, li {
+    text-decoration: none;
+    list-style-type:none;
+}
+
+.questionOutput {
+    color:blue;
+    size: 2em;
+}
+.shortAnsOutput {
+    color: gray;
+    padding-left: 30px;
+    size: 1.2em;
+}
+.longAnsOutput {
+    color: red;
+    padding-left: 30px;
+    size: 1em;
+}
+
+</style>
+<body>
+<h1>Got Circling?</h1>
+<p>Circling is a powerful way to familiarize yourself with new words and phrases. Enter a sentence below to see a bunch of questions about it!</p>
+
+<form> 
+    <input type="text" id="sentence" placeholder="Bob 想 买 面条。" >
+    <input type="text" id="shadow" placeholder="George 讨厌 吃 牛排" >
+    <input type="button" id="make" value="Make questions">
+  </form>
+
+  <div class="questionOutput">Static Question Output Example</div>
+  <div class="longAnsOutput">Static long answer output example</div>
+  <div class="shortAnsOutput">Static short answer example</div>
+
+
+     <script src="/javascript/button.js">
+
+
+    </script>
+</body>
+</html>
