@@ -14,13 +14,28 @@ ul, li {
     color:blue;
     font-size: 1em;
 }
+
 .shortAnsOutput {
     color: cornflowerblue;
     padding-left: 30px;
     font-size: 0.75em;
 }
+
 .longAnsOutput {
     color:cornflowerblue;
+    padding-left: 30px;
+    font-size: 0.75em;
+}
+
+.threeferOutput {
+    color:cornflowerblue;
+    padding-left: 30px;
+    font-size: 0.5em;
+
+}
+
+.threeferBox {
+    color:rgb(78, 79, 80);
     padding-left: 30px;
     font-size: 0.75em;
 }
@@ -63,7 +78,7 @@ form {
 </style>
 <body>
 <h1>Got Circling?</h1>
-<p>Circling is a powerful way to familiarize yourself with new words and phrases. Enter a (for now, simple 4-element) sentence below to see a bunch of questions about it!</p>
+<p>Circling is a powerful way to familiarize yourself with new words and phrases. Enter a  sentence below, separating items with a space, to see a bunch of questions (and answers) about it!</p>
 
 <form> 
     <input type="text" id="sentence" placeholder="Bob 想 买 面条。" >
@@ -89,8 +104,10 @@ form {
         <input type="checkbox" id="obj" default="checked">Object
     </div>
     <div class="threeferBox">
-        <input type="checkbox" id="threefer">Include threefers
+        <input type="checkbox" id="wantsThreefer">Include threefers
     </div>
+    <div class="threeferBox">
+        <input type="checkbox" id="displayAnswers">Display answers after questions</div>
     
     <input type="button" id="make" value="Make questions">
   </form>
@@ -98,7 +115,7 @@ form {
   
 
 
-     <script src="/javascript/makeQuestions2.js">
+     <script src="/javascript/makeQuestions3.js">
 
 
     </script>

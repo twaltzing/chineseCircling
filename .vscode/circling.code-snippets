@@ -32,3 +32,16 @@
 	"description": "outputs the questions for circling script"
 
 }
+
+"conditional output": {
+	"scope": "javascript, html",
+	"prefix": "outq",
+	"body":
+	
+	,
+	"description": "Output user requested elements"
+
+
+}
+
+}

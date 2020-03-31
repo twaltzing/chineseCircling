@@ -17,24 +17,16 @@ function makeQuestions() {
     var hasGenGei = document.getElementById("geigen").checked;
     var hasObj = document.getElementById("obj").checked;
     
-    var wantsThree = document.getElementById("threefer").checked;
+    // read user's desired options
+    var wantsThreefer = document.getElementById("wantsThreefer").checked;
+    var displayAnswers = document.getElementById("displayAnswers").checked;
     
-    //remove trailing punctuation from sentences
-        //  var sentenceBare=sentence.slice(0,sentence.length-1);
-        //  var shadowBare=shadow.slice(0,shadow.length-1);
-    
-         //////
-         ///FOR TESTING ONLY
-         //////
-         
-        //  shadowBare="SubS,,TimeS,LocS,GenGeiS,MainVerbS,ObjS"
     
     //store chunks in an array
     oSentArr=sentence.trim().split(" ");
     shSentArr=shadow.trim().split(" ");
     
-    console.log("Sentence is :" +sentence);
-    console.log(oSentArr);
+
     //make variables for different chunks
     var sub="";
     var mod="";
@@ -52,9 +44,17 @@ function makeQuestions() {
     var mainVerbS="";
     var objS="";
     
-    // set variables equal to actual values in sentences
-        sub=oSentArr[0]; // all sentences have a subject
-        subS=shSentArr[0];
+// set variables equal to actual values in sentences
+    sub=oSentArr[0]; // all sentences have a subject
+        
+    //generate a random shadow subject
+    let arrShSub=['George','Obama','Abraham Lincoln','Karen','RinTinTin','Batman','蔣介石','Sponge Bob'];
+
+        minimum=0;
+        maximum=arrShSub.length-1;
+        var randomnumberShSub = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+    // set shadow subject = to random shadow subject
+    subS=arrShSub[randomnumberShSub];
     
       var ind=1;  
          if (hasModal === true){
@@ -90,10 +90,17 @@ function makeQuestions() {
             mainVerbS=shSentArr[ind];
             ind++;
     
-    if (hasObj===true){
-            obj=oSentArr[ind];
-            objS=shSentArr[ind];
-            }
+    //generate a random shadow object
+    let arrShObj=['蘋果','自行車','漢堡包','沙拉','衣服','錢','披薩','土撥鼠','阿根廷'];
+        
+    minimum=0;
+    maximum=arrShObj.length-1;
+    var randomnumberShObj = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+
+if (hasObj===true){
+    obj=oSentArr[ind];
+    objS=arrShObj[randomnumberShObj];
+    }
     
     
     console.log("Subject[0] is:" +sub);
@@ -131,6 +138,7 @@ longAnswer=sentence;
     questionDiv.innerHTML = question;
     document.body.appendChild(questionDiv);
 
+        if (displayAnswers===true){
     let shortAnsDiv = document.createElement('div');
     shortAnsDiv.classList.add('shortAnsOutput');
     shortAnsDiv.class = 'shortAnsOutput';
@@ -142,6 +150,9 @@ longAnswer=sentence;
     longAnsDiv.class = 'longAnsOutput';
     longAnsDiv.innerHTML = longAnswer;
     document.body.appendChild(longAnsDiv);
+        }
+            
+        
 
 ////////////////////////
 // Sub - NO - shadow ///
@@ -149,28 +160,40 @@ longAnswer=sentence;
 
 question = subS+sp+mod+sp+time+sp+loc+sp+mainVerb+sp+obj+ma;
 shortAnswer = bu+sp+mod;
-longAnswer = subS+bu+mod+sp+mainVerb+sp+obj+", "+sub+sp+mod+sp+mainVerb+sp+obj+"。";
+longAnswer = subS+bu+mod+sp+mainVerb+sp+obj;
+threefer = subS+bu+mod+sp+mainVerb+sp+obj+", "+sub+sp+mod+sp+mainVerb+sp+obj+"。"
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+        questionDiv = document.createElement('div');
+        questionDiv.classList.add('questionOutput');
+        questionDiv.class = 'questionOutput';
+        questionDiv.innerHTML = question;
+        document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+            if (displayAnswers===true){
+        shortAnsDiv = document.createElement('div');
+        shortAnsDiv.classList.add('shortAnsOutput');
+        shortAnsDiv.class = 'shortAnsOutput';
+        shortAnsDiv.innerHTML = shortAnswer;
+        document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
+        longAnsDiv = document.createElement('div');
+        longAnsDiv.classList.add('longAnsOutput');
+        longAnsDiv.class = 'longAnsOutput';
+        longAnsDiv.innerHTML = longAnswer;
+        document.body.appendChild(longAnsDiv);
+            }
+        if (wantsThreefer===true){
+            let threeferDiv = document.createElement('div');
+            threeferDiv.classList.add('threeferOutput');
+            threeferDiv.class = 'threeferOutput';
+            threeferDiv.innerHTML = threefer;
+            document.body.appendChild(threeferDiv);
+                    }
+    
 
-document.body.appendChild(longAnsDiv);
+
 
 //////////////////////
 // Obj- NO  shadow ///
@@ -179,33 +202,46 @@ document.body.appendChild(longAnsDiv);
 if (hasObj===true){
 
 question = sub+sp+time+sp+loc+sp+mod+sp+mainVerb+sp+objS+ma;
-
+shortAnswer=bu + sp + mainVerb;
+longAnswer=sub+sp+bu+sp+mod + mainVerb+sp+objS;
+threefer=longAnswer + ", "+sub +sp+mainVerb+ sp + obj+", "+longAnswer;
+    console.log(threefer);
+}
 if (hasModal===true){
 shortAnswer=bu + sp +mod;
-} else {shortAnswer=bu + sp + mainVerb;}
+longAnswer = sub+sp+bu+mod+sp+mainVerb+sp+objS;
+    } 
 
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+        questionDiv = document.createElement('div');
+        questionDiv.classList.add('questionOutput');
+        questionDiv.class = 'questionOutput';
+        questionDiv.innerHTML = question;
+        document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+            if (displayAnswers===true){
+        shortAnsDiv = document.createElement('div');
+        shortAnsDiv.classList.add('shortAnsOutput');
+        shortAnsDiv.class = 'shortAnsOutput';
+        shortAnsDiv.innerHTML = shortAnswer;
+        document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
-
-    }
+        longAnsDiv = document.createElement('div');
+        longAnsDiv.classList.add('longAnsOutput');
+        longAnsDiv.class = 'longAnsOutput';
+        longAnsDiv.innerHTML = longAnswer;
+        document.body.appendChild(longAnsDiv);
+            }
+        if (wantsThreefer===true){
+            let threeferDiv = document.createElement('div');
+            threeferDiv.classList.add('threeferOutput');
+            threeferDiv.class = 'threeferOutput';
+            threeferDiv.innerHTML = threefer;
+            document.body.appendChild(threeferDiv);
+                    }
+    
 
 ///////////////////////
 // Sub or question ////
@@ -213,26 +249,41 @@ shortAnswer=bu + sp +mod;
 question = sub +sp +haishi +subS + mod + sp + time+sp+loc+sp+mainVerb+sp+obj+"?";
 shortAnswer = sub;
 longAnswer = sub +sp + mod + sp +time+sp+loc+sp+mainVerb+sp+obj+"。";
+threefer = subS + sp + bu + mod + sp+time+sp+loc+sp+mainVerb+sp+obj+", "+longAnswer
 
-// Output the question set
+if (hasModal===false){
+    longAnswer = sub +sp +time+sp+loc+sp+mainVerb+sp+obj+"。";
+threefer = subS + bu+mainVerb+sp+obj+", "+longAnswer
+}
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
+/// Output the question set
 
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+        questionDiv = document.createElement('div');
+        questionDiv.classList.add('questionOutput');
+        questionDiv.class = 'questionOutput';
+        questionDiv.innerHTML = question;
+        document.body.appendChild(questionDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
+            if (displayAnswers===true){
+        shortAnsDiv = document.createElement('div');
+        shortAnsDiv.classList.add('shortAnsOutput');
+        shortAnsDiv.class = 'shortAnsOutput';
+        shortAnsDiv.innerHTML = shortAnswer;
+        document.body.appendChild(shortAnsDiv);
+
+        longAnsDiv = document.createElement('div');
+        longAnsDiv.classList.add('longAnsOutput');
+        longAnsDiv.class = 'longAnsOutput';
+        longAnsDiv.innerHTML = longAnswer;
+        document.body.appendChild(longAnsDiv);
+            }
+        if (wantsThreefer===true){
+            let threeferDiv = document.createElement('div');
+            threeferDiv.classList.add('threeferOutput');
+            threeferDiv.class = 'threeferOutput';
+            threeferDiv.innerHTML = threefer;
+            document.body.appendChild(threeferDiv);
+                    }
 
 ////////////////////////
 // Sub QW QUESTION   ///
@@ -244,24 +295,28 @@ longAnswer = sub +sp +mod + sp+ time+sp+loc+sp+mainVerb+sp+obj;
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+questionDiv = document.createElement('div');
+questionDiv.classList.add('questionOutput');
+questionDiv.class = 'questionOutput';
+questionDiv.innerHTML = question;
+document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+    if (displayAnswers===true){
+shortAnsDiv = document.createElement('div');
+shortAnsDiv.classList.add('shortAnsOutput');
+shortAnsDiv.class = 'shortAnsOutput';
+shortAnsDiv.innerHTML = shortAnswer;
+document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-
+longAnsDiv = document.createElement('div');
+longAnsDiv.classList.add('longAnsOutput');
+longAnsDiv.class = 'longAnsOutput';
+longAnsDiv.innerHTML = longAnswer;
 document.body.appendChild(longAnsDiv);
+    }
+
+
+
 
 ///////////////////////
 /// OBJ QW Question ///
@@ -274,23 +329,25 @@ longAnswer = sub +sp + time+sp+loc+sp+mod+sp+mainVerb+sp+ obj;
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+questionDiv = document.createElement('div');
+questionDiv.classList.add('questionOutput');
+questionDiv.class = 'questionOutput';
+questionDiv.innerHTML = question;
+document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+    if (displayAnswers===true){
+shortAnsDiv = document.createElement('div');
+shortAnsDiv.classList.add('shortAnsOutput');
+shortAnsDiv.class = 'shortAnsOutput';
+shortAnsDiv.innerHTML = shortAnswer;
+document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
+longAnsDiv = document.createElement('div');
+longAnsDiv.classList.add('longAnsOutput');
+longAnsDiv.class = 'longAnsOutput';
+longAnsDiv.innerHTML = longAnswer;
+document.body.appendChild(longAnsDiv);
+    }
 }
 
 
@@ -305,55 +362,65 @@ longAnswer = sub +sp + time+sp+loc+sp+mod+sp+mainVerb+sp+obj;
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+questionDiv = document.createElement('div');
+questionDiv.classList.add('questionOutput');
+questionDiv.class = 'questionOutput';
+questionDiv.innerHTML = question;
+document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+    if (displayAnswers===true){
+shortAnsDiv = document.createElement('div');
+shortAnsDiv.classList.add('shortAnsOutput');
+shortAnsDiv.class = 'shortAnsOutput';
+shortAnsDiv.innerHTML = shortAnswer;
+document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
+longAnsDiv = document.createElement('div');
+longAnsDiv.classList.add('longAnsOutput');
+longAnsDiv.class = 'longAnsOutput';
+longAnsDiv.innerHTML = longAnswer;
+document.body.appendChild(longAnsDiv);
+    }
     }
 
     //////////////////////////
     // Modal OR         //////
     //////////////////////////
-if (hasModal===true){
+// if (hasModal===true){
 
-question = sub +sp +mod+haishi+modS +sp + time+sp+loc+ sp+mainVerb+sp+obj;
+// question = sub +sp +mod+haishi+modS +sp + time+sp+loc+ sp+mainVerb+sp+obj;
 
-shortAnswer = mod;
-longAnswer=sub +sp + time+sp+loc+sp+mod+sp+mainVerb+sp+obj;
+// shortAnswer = mod;
+// longAnswer=sub +sp + time+sp+loc+sp+mod+sp+mainVerb+sp+obj;
 
-// Output the question set
+// // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+// questionDiv = document.createElement('div');
+// questionDiv.classList.add('questionOutput');
+// questionDiv.class = 'questionOutput';
+// questionDiv.innerHTML = question;
+// document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+//     if (displayAnswers===true){
+// shortAnsDiv = document.createElement('div');
+// shortAnsDiv.classList.add('shortAnsOutput');
+// shortAnsDiv.class = 'shortAnsOutput';
+// shortAnsDiv.innerHTML = shortAnswer;
+// document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
-        }
+// longAnsDiv = document.createElement('div');
+// longAnsDiv.classList.add('longAnsOutput');
+// longAnsDiv.class = 'longAnsOutput';
+// longAnsDiv.innerHTML = longAnswer;
+// document.body.appendChild(longAnsDiv);
+//     }
+// if (wantsThreefer===true){
+//     let threeferDiv = document.createElement('div');
+//     threeferDiv.classList.add('threeferOutput');
+//     threeferDiv.class = 'threeferOutput';
+//     threeferDiv.innerHTML = threefer;
+//     document.body.appendChild(threeferDiv);
+//             }
 
 ///////////////////////////////
 // MainVerb No w Shadow, ma //
@@ -372,23 +439,32 @@ if (hasModal===true){
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+questionDiv = document.createElement('div');
+questionDiv.classList.add('questionOutput');
+questionDiv.class = 'questionOutput';
+questionDiv.innerHTML = question;
+document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+    if (displayAnswers===true){
+shortAnsDiv = document.createElement('div');
+shortAnsDiv.classList.add('shortAnsOutput');
+shortAnsDiv.class = 'shortAnsOutput';
+shortAnsDiv.innerHTML = shortAnswer;
+document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
+longAnsDiv = document.createElement('div');
+longAnsDiv.classList.add('longAnsOutput');
+longAnsDiv.class = 'longAnsOutput';
+longAnsDiv.innerHTML = longAnswer;
+document.body.appendChild(longAnsDiv);
+    }
+if (wantsThreefer===true){
+    let threeferDiv = document.createElement('div');
+    threeferDiv.classList.add('threeferOutput');
+    threeferDiv.class = 'threeferOutput';
+    threeferDiv.innerHTML = threefer;
+    document.body.appendChild(threeferDiv);
+            }
 
 ///////////////////////////////
 // Yes: V bu V              ///
@@ -402,23 +478,25 @@ longAnswer = sub +sp + time+sp+loc+sp+mod+sp+mainVerb+sp+obj;
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+questionDiv = document.createElement('div');
+questionDiv.classList.add('questionOutput');
+questionDiv.class = 'questionOutput';
+questionDiv.innerHTML = question;
+document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+    if (displayAnswers===true){
+shortAnsDiv = document.createElement('div');
+shortAnsDiv.classList.add('shortAnsOutput');
+shortAnsDiv.class = 'shortAnsOutput';
+shortAnsDiv.innerHTML = shortAnswer;
+document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
+longAnsDiv = document.createElement('div');
+longAnsDiv.classList.add('longAnsOutput');
+longAnsDiv.class = 'longAnsOutput';
+longAnsDiv.innerHTML = longAnswer;
+document.body.appendChild(longAnsDiv);
+    }
 }
 
 //////////////////////
@@ -429,34 +507,34 @@ question = sub +sp +mod + time+sp+loc+sp+mainVerb + haishi + mainVerbS +sp+obj;
 shortAnswer = mainVerb;
 longAnswer = sub +sp + time+sp+loc+sp+mod+sp+mainVerb+sp+obj;
 
-// Output the question set
+/// Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+        questionDiv = document.createElement('div');
+        questionDiv.classList.add('questionOutput');
+        questionDiv.class = 'questionOutput';
+        questionDiv.innerHTML = question;
+        document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+            if (displayAnswers===true){
+        shortAnsDiv = document.createElement('div');
+        shortAnsDiv.classList.add('shortAnsOutput');
+        shortAnsDiv.class = 'shortAnsOutput';
+        shortAnsDiv.innerHTML = shortAnswer;
+        document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
-
-        if (wantsThree===true) {
-threefer = longAnswer + ", "+ sub +sp + time+sp+loc+sp+mod+sp+bu + mainVerb+sp+obj + ", " + longAnswer;
-    threeferDiv = document.createElement('div');
-    threeferDiv.classList.add('threeferOutput');
-    threeferDiv.class = 'threeferOutput';
-    threeferDiv.innerHTML = threefer;
-    document.body.appendChild(threeferDiv);
-    }
+        longAnsDiv = document.createElement('div');
+        longAnsDiv.classList.add('longAnsOutput');
+        longAnsDiv.class = 'longAnsOutput';
+        longAnsDiv.innerHTML = longAnswer;
+        document.body.appendChild(longAnsDiv);
+            }
+        if (wantsThreefer===true){
+            let threeferDiv = document.createElement('div');
+            threeferDiv.classList.add('threeferOutput');
+            threeferDiv.class = 'threeferOutput';
+            threeferDiv.innerHTML = threefer;
+            document.body.appendChild(threeferDiv);
+                    }
 
 ///////////////////////////
 /// Subject OR          ///
@@ -468,23 +546,32 @@ longAnswer = sub +sp + time+sp+loc+sp+mod+sp+mainVerb +sp+obj;
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+questionDiv = document.createElement('div');
+questionDiv.classList.add('questionOutput');
+questionDiv.class = 'questionOutput';
+questionDiv.innerHTML = question;
+document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+    if (displayAnswers===true){
+shortAnsDiv = document.createElement('div');
+shortAnsDiv.classList.add('shortAnsOutput');
+shortAnsDiv.class = 'shortAnsOutput';
+shortAnsDiv.innerHTML = shortAnswer;
+document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;  
-    document.body.appendChild(longAnsDiv);
+longAnsDiv = document.createElement('div');
+longAnsDiv.classList.add('longAnsOutput');
+longAnsDiv.class = 'longAnsOutput';
+longAnsDiv.innerHTML = longAnswer;
+document.body.appendChild(longAnsDiv);
+    }
+if (wantsThreefer===true){
+    let threeferDiv = document.createElement('div');
+    threeferDiv.classList.add('threeferOutput');
+    threeferDiv.class = 'threeferOutput';
+    threeferDiv.innerHTML = threefer;
+    document.body.appendChild(threeferDiv);
+            }
 
 //////////////////////////
 // Obj OR              ///
@@ -497,51 +584,63 @@ longAnswer = sub +sp + time+sp+loc+sp+mod+sp+mainVerb +sp+obj;
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+questionDiv = document.createElement('div');
+questionDiv.classList.add('questionOutput');
+questionDiv.class = 'questionOutput';
+questionDiv.innerHTML = question;
+document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+    if (displayAnswers===true){
+shortAnsDiv = document.createElement('div');
+shortAnsDiv.classList.add('shortAnsOutput');
+shortAnsDiv.class = 'shortAnsOutput';
+shortAnsDiv.innerHTML = shortAnswer;
+document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
-    document.body.appendChild(longAnsDiv);
+longAnsDiv = document.createElement('div');
+longAnsDiv.classList.add('longAnsOutput');
+longAnsDiv.class = 'longAnsOutput';
+longAnsDiv.innerHTML = longAnswer;
+document.body.appendChild(longAnsDiv);
+    }
+if (wantsThreefer===true){
+    let threeferDiv = document.createElement('div');
+    threeferDiv.classList.add('threeferOutput');
+    threeferDiv.class = 'threeferOutput';
+    threeferDiv.innerHTML = threefer;
+    document.body.appendChild(threeferDiv);
             }
-
+        }
 /////////////////////
 // When question  ///
 /////////////////////
+
+    if (hasTime===true){
 question = sub + sp + mod + sp + "什麼時候"+ sp + loc + sp + mainVerb + sp + obj;
 shortAnswer = time;
 longAnswer= sub + sp + mod + sp + time + sp + loc + sp + mainVerb + sp + obj;
 
 // Output the question set
 
-    questionDiv = document.createElement('div');
-    questionDiv.classList.add('questionOutput');
-    questionDiv.class = 'questionOutput';
-    questionDiv.innerHTML = question;
-    document.body.appendChild(questionDiv);
-    shortAnswerDiv = document.createElement('div');
-    shortAnswerDiv.classList.add('shortAnsOutput');
-    shortAnswerDiv.class = 'shortAnsOutput';
+        questionDiv = document.createElement('div');
+        questionDiv.classList.add('questionOutput');
+        questionDiv.class = 'questionOutput';
+        questionDiv.innerHTML = question;
+        document.body.appendChild(questionDiv);
 
-    shortAnswerDiv.innerHTML = shortAnswer;
-    document.body.appendChild(shortAnswerDiv);
+            if (displayAnswers===true){
+        shortAnsDiv = document.createElement('div');
+        shortAnsDiv.classList.add('shortAnsOutput');
+        shortAnsDiv.class = 'shortAnsOutput';
+        shortAnsDiv.innerHTML = shortAnswer;
+        document.body.appendChild(shortAnsDiv);
 
-    longAnsDiv = document.createElement('div');
-    longAnsDiv.classList.add('longAnsOutput');
-    longAnsDiv.class = 'longAnsOutput';
-    longAnsDiv.innerHTML = longAnswer;
+        longAnsDiv = document.createElement('div');
+        longAnsDiv.classList.add('longAnsOutput');
+        longAnsDiv.class = 'longAnsOutput';
+        longAnsDiv.innerHTML = longAnswer;
+        document.body.appendChild(longAnsDiv);
+            }
 
-document.body.appendChild(longAnsDiv);
-
-    }
+        }
+}
