@@ -1,11 +1,11 @@
 
 var dict = new Object();
-dict["喜歡"]="xǐHUĀN";
-dict["吃"]="CHĪ";
-dict["漢堡包"]="HànbǎoBĀO";
-dict["披薩"]="PĪSà";
-dict["Bob"]="Bob";
-dict["想要"]="xiǎngYào";
+dict["喜歡"]=["xǐHUĀN","likes"];
+dict["吃"]=["CHĪ", "eats"];
+dict["漢堡包"]=["HànbǎoBĀO", "hamburger"];
+dict["披薩"]=["PĪSà", "pizza"];
+dict["Bob"]=["Bob", "Bob"];
+dict["想要"]=["xiǎngYào", "feels like"];
 
 
 // console.log(dict);
@@ -18,6 +18,7 @@ var sentence=sentenceOrig.split(" ");
 
 var searchToken = "";
 var pinyinSentence=[];
+var englishSentence=[];
 
 for (i=0; i<sentence.length; i++){
 
@@ -26,15 +27,20 @@ for (i=0; i<sentence.length; i++){
     console.log("Searching for " +searchToken);
 
  for(var key in dict) {
-     var pinyin = dict[key];
+     var pinyin = dict[key][0];
+     var english = dict[key][1];
      if (key===sentence[i]){
             //add a space and the next Pinyin word
         partToAdd=" "+pinyin;
-        console.log("Add this: "+partToAdd);
+        engToAdd=" "+english;
+
             //append it to the sentence
         pinyinSentence.push(partToAdd);
+        englishSentence.push(engToAdd);
     }
   }
   let finalPinyin=pinyinSentence.join(" ");
   console.log(finalPinyin);
+  let finalGloss=englishSentence.join(" ");
+  console.log(finalGloss);
  }
