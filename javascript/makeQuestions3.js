@@ -176,20 +176,23 @@ if (hasObj===true){
 question = sub+sp+mod + sp + time+sp+loc+sp+mainVerb+sp+objS+ma;
 shortAnswer=bu + sp + mainVerb;
 longAnswer=sub+sp+bu+sp+mod + mainVerb+sp+objS;
-threefer=longAnswer + ", "+sub +sp+mainVerb+ sp + obj+", "+longAnswer;
+
     
 }
 if (hasModal===true){
 shortAnswer=bu + sp +mod;
 longAnswer = sub+sp+bu+mod+sp+mainVerb+sp+objS;
     } 
+
+    threefer=longAnswer + ", "+sub +sp+mainVerb+ sp + obj+", "+longAnswer;   
+
 type = "Obj No";
 structure = "ma";
 
 newQ = { question,shortAnswer, longAnswer, threefer, type, struct};
 
 quesArr.push(newQ);
-console.log(quesArr);
+
 
 
 
