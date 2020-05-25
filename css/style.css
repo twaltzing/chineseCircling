@@ -1,0 +1,33 @@
+.sentence, .shadows {
+    display: flex;
+    flex-direction: column;
+}
+
+.sentence {
+    background-color: rgb(196, 247, 204);
+    flex: 3;
+
+}
+.shadows {
+    background-color: rgb(125, 158, 76)
+    flex: 7;
+}
+
+.allInput {
+    display: flex;
+    flex-direction: row;
+}
+
+.shadowInput {
+    overflow: scroll;
+
+}
+
+.sentenceInput {
+    overflow: scroll;
+    align-content: right;
+}
+
+#saveShadows {
+    width=100px;
+}
