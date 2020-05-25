@@ -8,8 +8,8 @@
 </head>
 <body>
 
-    <input type="text" placeholder="Type something..." id="sub2">
-    <button type="button" onclick="getInputValue();">Get Value</button>
+    <!-- <input type="text" placeholder="Type something..." id="sub2">
+    <button type="button" onclick="getInputValue();">Get Value</button> -->
 
 
  <div class="allInput">   
@@ -20,7 +20,10 @@
         <button type="button" onclick="makeQuestions();">Get Value</button>
 
     <div class="sentenceInput">
+    <input type="text" id="mSubAdj" placeholder="Adjective/Modifier:">
+    </div>    
 
+    <div class="sentenceInput">
     <input type="text" id="mSub" placeholder= "Subject:">
     </div>
     
@@ -51,12 +54,19 @@
     </div>
 
     <div class="sentenceInput">
+        <input type="text" id="mAspect" placeholder="了、過"
+    </div>
+
+    <div class="sentenceInput">
         <input type="text" id="mNum" placeholder= "Number:">
         </div>
 
         <div class="sentenceInput">
             <input type="text" id="mMeas" placeholder= "Measure:">
             </div>
+
+            <input type="text" id="mObjAdj" placeholder="Adjective/Modifier:">
+        </div>         
     
     <div class="sentenceInput">
     <input type="text" id="mObj"  placeholder="Object:">
@@ -73,6 +83,11 @@
 <div class="shadows">
     <p>Shadows:</p>
     <button type="button" id="saveShadows">Save Shadows</button>
+
+<div class="shadowInput">
+    <input type="text" id="sSubAdj" placeholder= "Subject descriptors:" size="100px">
+        </div>
+
 <div class="shadowInput">
 <input type="text" id="sSub" placeholder= "Shadow subjects separated by semicolons:" size="100px">
 </div>
@@ -99,9 +114,15 @@ placeholder= "Modal:" size="100px">
 placeholder= "跟/為/給:" size="100px">
 </div>
 
+
+
 <div class="shadowInput">
 <input type="text" id="sMainVerb" placeholder= "Main verb:" size="100px">
 </div>
+
+<div class="shadowInput">
+    <input type="text" id="sAspect" placeholder= "Aspect:" size="100px">
+        </div>
 
 <div class="shadowInput">
     <input type="text" id="sNum" placeholder= "Number:" size="100px">
@@ -110,6 +131,9 @@ placeholder= "跟/為/給:" size="100px">
     <div class="shadowInput">
         <input type="text" id="sMeas" placeholder= "Measure:" size="100px">
         </div>
+<div class="shadowInput">
+     <input type="text" id="sObjAdj" placeholder= "Object descriptors:" size="100px">
+                </div>
 
 <div class="shadowInput">
 <input type="text" id="sObj"  placeholder="Object:" size="100px">
