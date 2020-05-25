@@ -87,21 +87,50 @@ sObjAdj="";
 sObj="漢堡包;籃球;垃圾車;一群馬;巴黎";
 sTimes="35次;兩次;一次";
 
-    console.log("Random subject is: "+randomShadow(sSub));
-    console.log("Random verb is: "+randomShadow(sMainVerb));
-    console.log("Random object is: "+randomShadow(sObj));
-    console.log("Random place is: "+randomShadow(sPlace));
-
-// var sentenceQAs={"sentence",{"question",
-//         {"answer","shortAnswer","threefer","type"}
-//                 }
-//             };
-
-
-/// YES questions
+    // console.log("Random subject is: "+randomShadow(sSub));
+    // console.log("Random verb is: "+randomShadow(sMainVerb));
+    // console.log("Random object is: "+randomShadow(sObj));
+    // console.log("Random place is: "+randomShadow(sPlace));
 
 
 
 
 
+
+
+
+
+////set up the data object
+let story = [];
+
+function addSentence(sentence, questions, answers) {
+  story.push(sentence, questions, answers);
 }
+
+///adding a sentence
+addSentence("Bob is a doofus.", ["Is he?", "What is he?", "Who's a doofus?"], 
+    [ ["Yes", "Yes, he is"],
+        ["A doofus.", "Bob's a doofus."],
+        ["Bob.", "Bob's a doofus."]
+    ]
+    );
+
+    console.log(story);
+
+
+
+} 
+///displaying contents
+    // for (i=0; i<story.length; i++){
+    //     for (j=0; i<sentence.length; j++){
+    //         for (k=0; k<questions.length; k++){
+
+    //     for (w=0; w<answers.length; w++){
+    //     console.log(sentence[i].questions[j].answers[k]);
+    //     }
+    //         }
+    //     }
+    // }
+
+
+
