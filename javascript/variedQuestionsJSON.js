@@ -87,6 +87,13 @@ sObjAdj="";
 sObj="漢堡包;籃球;垃圾車;一群馬;巴黎";
 sTimes="35次;兩次;一次";
 
+// word space character 
+sp =" ";
+neg = "不";
+mei="沒";
+or="還是";
+ma="嗎";
+
     // console.log("Random subject is: "+randomShadow(sSub));
     // console.log("Random verb is: "+randomShadow(sMainVerb));
     // console.log("Random object is: "+randomShadow(sObj));
@@ -100,37 +107,102 @@ sTimes="35次;兩次;一次";
 
 
 
-////set up the data object
+////set up the data 
 let story = [];
+let sentence=[];
+let questionList=[];
+let QA=[];
+let QAarray=[];
 
-function addSentence(sentence, questions, answers) {
-  story.push(sentence, questions, answers);
+//add questions to the question/answer list for this sentence
+function addQA(question, answer, shortAnswer){
+    QA.push(question, answer, shortAnswer);
+    QAarray.push(QA);
+    QA=[];
+    return QAarray;
 }
 
-///adding a sentence
-addSentence("Bob is a doofus.", ["Is he?", "What is he?", "Who's a doofus?"], 
-    [ ["Yes", "Yes, he is"],
-        ["A doofus.", "Bob's a doofus."],
-        ["Bob.", "Bob's a doofus."]
-    ]
-    );
+statement="This sucks.";
+Question="Is it?";
+Answer="No way!";
+ShortAnswer="Nope!";
+addQA(Question,Answer,ShortAnswer);
 
-    console.log(story);
+
+Question="Will she?";
+Answer="For sure!";
+ShortAnswer="Yep";
+addQA(Question,Answer,ShortAnswer);
+
+
+sentenceSet=makeSentenceSet(statement, QAarray);
+addSentenceToStory(sentenceSet);
+
+
+function makeSentenceSet(statement, QA){
+    sentenceSet=[]
+sentenceSet.push(statement, QA);
+    QA=[];
+    QAarray=[];
+return sentenceSet;
+}
+
+function addSentenceToStory(sentenceSet){
+    story.push(sentenceSet);
+    return story;
+}
+
+statement="Bob thinks so too.";
+addQA("q1","a1","a1a");
+addQA("q2", "a2", "a2a");
+sentenceSet=makeSentenceSet(statement, QAarray);
+addSentenceToStory(sentenceSet);
+
+
+
+
+statement=mSub + sp + mMainVerb + sp + mObj;
+Question=mSub + sp + mMainVerb+ sp + mObj + ma;
+Answer=mSub + sp + mMainVerb + sp + mObj;
+ShortAnswer=mMainVerb;
+
+addQA(Question,Answer,ShortAnswer);
+
+sentenceSet=makeSentenceSet(statement, QAarray);
+addSentenceToStory(sentenceSet);
+
+console.log("This is the whole story: "+story);
+
+
+// story.push(makeSentence("y",[[9,8,7],[3,2,1]]));
+
+console.log(story);
+
+
+
+
+
+
+
+// ///adding a sentence
+// var x=addSentence("Bob is a doofus.", ["Is he?", "What is he?", "Who's a doofus?"], 
+//     [ ["Yes", "Yes, he is"],
+//         ["A doofus.", "Bob's a doofus."],
+//         ["Bob.", "Bob's a doofus."]
+//     ]
+//     );
+
+//     var y=addSentence("Jayne is an idiot.", ["Is she?", "What is she?", "Who's an idiot?"], 
+//     [ ["Yes", "Yes, she is"],
+//         ["An idiot.", "Jane's an idiot."],
+//         ["Jane.", "Jane's an idiot."]
+//     ]
+//     );    
 
 
 
 } 
-///displaying contents
-    // for (i=0; i<story.length; i++){
-    //     for (j=0; i<sentence.length; j++){
-    //         for (k=0; k<questions.length; k++){
 
-    //     for (w=0; w<answers.length; w++){
-    //     console.log(sentence[i].questions[j].answers[k]);
-    //     }
-    //         }
-    //     }
-    // }
 
 
 
