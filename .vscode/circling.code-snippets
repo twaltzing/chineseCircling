@@ -16,6 +16,14 @@
 	// 	"description": "Log output to console"
 	// }
 
+"add data to story": {
+	"scope": "javascript",
+	"prefix": "addNewStuff",
+	"body": ["addQA(question, answer, shortAnswer);\nsentenceSet=makeSentenceSet(statement, QAarray);\naddSentenceToStory(sentenceSet);"],
+	"description": "Add QAs to data set"
+},
+
+
 "reload original sentences": {
 	"scope": "javascript, html",
 	"prefix": "reload",
